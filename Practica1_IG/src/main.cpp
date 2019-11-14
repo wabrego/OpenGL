@@ -21,8 +21,8 @@ void funDisplay();
 
 void drawObject(Model* object, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawSuelo (glm::mat4 P, glm::mat4 V, glm::mat4 M);
-void drawCylinderRed(glm::mat4 P, glm::mat4 V, glm::mat4 M);
-void drawSphere(glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawCylinder(glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawSphereGreen(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawSphereBlue(glm::mat4 P, glm::mat4 V, glm::mat4 M);
   
 // Shaders
@@ -139,8 +139,8 @@ void funDisplay() {
 
  // Dibujamos la escena
     drawSuelo(P,V,I);
-    drawCylinderRed(P,V,I);
-    drawSphere(P,V,I);
+    drawCylinder(P,V,I);
+    drawSphereGreen(P,V,I);
     drawSphereBlue(P,V,I);
     
  // Intercambiamos los buffers
@@ -174,7 +174,7 @@ void drawBase(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
     drawObject(cylinder,glm::vec3(1.0f,1.0f,0.0f),P,V,M*Tz*Ry*T*S);
      
 }
-void drawSphere(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+void drawSphereGreen(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
     //drawEsferaAzul(P,V,M);
     glm::mat4 Tz = glm::translate(I, glm::vec3(0.0f,0.0f,1.0f));
     glm::mat4 Ry = glm::rotate   (I, glm::radians(-90.f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -223,14 +223,7 @@ void drawCylinderGreen(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
     drawObject(cylinder,glm::vec3(0.0f,1.0f,0.0f),P,V,M); 
     
 }
-
 void drawCylinderRed(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
-    //Llamadas a los cilindors verde y azul 
-    drawCylinderGreen(P,V,M);
-    drawCylinderBlue(P,V,M);
-    //Base Amarilla
-    drawBase(P,V,M);
-    //Cilindro Rojo
     glm::mat4 Tz = glm::translate(I, glm::vec3(0.0f,0.0f,1.0f));
     glm::mat4 Ry = glm::rotate   (I, glm::radians(-90.f), glm::vec3(0.0f, 1.0f, 0.0f));
     glm::mat4 R = glm::rotate   (I, glm::radians(90.f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -240,5 +233,16 @@ void drawCylinderRed(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
     glm::mat4 T1 = glm::translate(I, glm::vec3(0.0f,0.0f,1.0f));
     M = M*Tz*Ry*T*T1*R*R90*S;
     drawObject(cylinder,glm::vec3(1.0f,0.0f,0.0f),P,V,M);
+}
+
+void drawCylinder(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+    //Llamadas a los cilindros verde, azul y rojo 
+    drawCylinderGreen(P,V,M);
+    drawCylinderBlue(P,V,M);
+    drawCylinderRed (P,V,M);
+    //Base Cilindro Amarilla
+    drawBase(P,V,M);
+    
+   
      
 }
